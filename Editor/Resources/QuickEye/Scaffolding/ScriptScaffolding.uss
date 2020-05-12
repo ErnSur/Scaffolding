@@ -1,0 +1,55 @@
+.sidebar {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.header {
+    font-size: 16px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(10, 10, 10);
+    border-right-color: rgb(10, 10, 10);
+    border-top-color: rgb(10, 10, 10);
+    border-bottom-color: rgb(10, 10, 10);
+    padding-bottom: 6px;
+    margin-top: 6px;
+}
+
+#preview-toggle > .unity-toggle__input {
+}
+
+#preview-toggle > Label {
+    font-size: 16px;
+}
+
+#preview-content {
+    background-color: rgb(28, 28, 28);
+}
+
+#preview-toggle {
+    width: 25px;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+#preview-toggle.preview-toggle-on {
+    background-color: rgb(82, 82, 82);
+}
+
+#preview-toggle.preview-toggle-on > Label {
+    color: rgb(255, 255, 255);
+}
+
+.category-item {
+    padding-left: 20px;
+    -unity-text-align: middle-left;
+}
+
+.border-color {
+    border-left-color: rgba(0, 0, 0, 0.28);
+    border-right-color: rgba(0, 0, 0, 0.28);
+    border-top-color: rgba(0, 0, 0, 0.28);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+}

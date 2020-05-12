@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement style="flex-grow: 1;&#10;">
+        <Style src="ScriptScaffolding.uss" />
+        <ui:VisualElement style="flex-grow: 1;&#10;flex-direction: row;&#10;">
+            <ui:VisualElement name="preview-toggle">
+                <ui:Label text="Preview" />
+            </ui:VisualElement>
+            <ui:VisualElement name="preview-content" style="flex-grow: 1;&#10;display: none;&#10;">
+                <ui:IMGUIContainer style="flex-grow: 1;&#10;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="menu-content" style="flex-grow: 1;&#10;flex-direction: row;&#10;">
+                <ui:ListView focusable="True" name="category-list" item-height="20" class="sidebar border-color" style="width: 100px;&#10;border-right-width: 1px;&#10;" />
+                <ui:VisualElement name="content-page" style="flex-grow: 1;&#10;">
+                    <QuickEye.Scaffolding.FieldsFromGameObjectList style="flex-grow: 1;&#10;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <QuickEye.UIToolkit.FileLocationPanel class="border-color" style="border-top-width: 1px;&#10;">
+        <Style src="ScriptScaffolding.uss" />
+    </QuickEye.UIToolkit.FileLocationPanel>
+</ui:UXML>

@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <uie:ObjectField label="Target" name="target-field">
+        <Style src="FieldsFromGameObjectList.uss" />
+    </uie:ObjectField>
+    <ui:Toggle label="Include children" name="includeChildren-toggle">
+        <Style src="FieldsFromGameObjectList.uss" />
+    </ui:Toggle>
+    <ui:ListView focusable="True" name="fields-container" reorderable="true" item-height="22" style="flex-grow: 1;&#10;background-color: rgba(0, 0, 0, 0.06);&#10;">
+        <Style src="FieldsFromGameObjectList.uss" />
+    </ui:ListView>
+</ui:UXML>

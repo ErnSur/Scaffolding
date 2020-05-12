@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="listview-item" style="height: 20px;&#10;flex-direction: row;&#10;align-items: center;&#10;">
+        <Style src="FieldsFromGameObjectList-item.uss" />
+        <ui:VisualElement name="drag-handle" style="width: 25px;&#10;-unity-background-scale-mode: scale-to-fit;&#10;height: 100%;&#10;justify-content: space-around;&#10;align-items: stretch;&#10;padding-left: 6px;&#10;padding-right: 6px;&#10;padding-top: 4px;&#10;padding-bottom: 4px;&#10;">
+            <ui:VisualElement class="drag-handle-line" />
+            <ui:VisualElement class="drag-handle-line" />
+            <ui:VisualElement class="drag-handle-line" />
+        </ui:VisualElement>
+        <ui:Toggle />
+        <ui:VisualElement name="to-disable" style="flex-direction: row;&#10;">
+            <ui:Button name="icon" class="icon-button" />
+            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" name="name-field" style="flex-shrink: 1;&#10;flex-grow: 1;&#10;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
