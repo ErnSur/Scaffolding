@@ -70,25 +70,25 @@ namespace QuickEye.Scaffolding
         private ScaffoldingSettings _settings;
 
         #region ViewElements
-        [UQuery("content-page")]
+        [Q("content-page")]
         private VisualElement _contentPage;
 
-        [UQuery("preview-content")]
+        [Q("preview-content")]
         private VisualElement _previewContent;
 
-        [UQuery("category-list")]
+        [Q("category-list")]
         private ListView _categoryListView;
 
-        [UQuery("preview-toggle")]
+        [Q("preview-toggle")]
         private VisualElement _previewToggle;
 
-        [UQuery]
+        [Q]
         private FieldsFromGameObjectList _fieldsList;
 
-        [UQuery]
+        [Q]
         private FileLocationPanel _fileLocationPanel;
 
-        [UQuery("methods-content")]
+        [Q("methods-content")]
         private VisualElement _methodsList;
         #endregion
 
@@ -105,7 +105,7 @@ namespace QuickEye.Scaffolding
             var tree = Resources.Load<VisualTreeAsset>("QuickEye/Scaffolding/ScriptScaffolding");
             tree.CloneTree(rootVisualElement);
 
-            rootVisualElement.AssignQueryableMembers(this);
+            rootVisualElement.AssignQueryResults(this);
             RegisterEventHandlers();
             InitCategoryListView();
             InitPreview();

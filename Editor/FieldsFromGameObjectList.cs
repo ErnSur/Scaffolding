@@ -48,13 +48,13 @@ namespace QuickEye.Scaffolding
 
         public event Action<GameObject> TargetChanged;
 
-        [UQuery("target-field")]
+        [Q("target-field")]
         private ObjectField _targetField;
 
-        [UQuery("includeChildren-toggle")]
+        [Q("includeChildren-toggle")]
         private Toggle _includeChildrenToggle;
 
-        [UQuery("fields-container")]
+        [Q("fields-container")]
         private ListView _fieldsListView;
 
         private VisualTreeAsset _listItemPrototype;
@@ -84,7 +84,7 @@ namespace QuickEye.Scaffolding
 
             var tree = Resources.Load<VisualTreeAsset>(_uxmlPath);
             tree.CloneTree(this);
-            this.AssignQueryableMembers(this);
+            this.AssignQueryResults(this);
 
             SetupTargetField();
             SetupListView();
