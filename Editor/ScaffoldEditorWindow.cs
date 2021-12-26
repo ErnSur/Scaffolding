@@ -16,24 +16,28 @@ namespace QuickEye.Scaffolding
 {
     public class ScaffoldEditorWindow : EditorWindow
     {
-        private static Font _consolaFont;
-
+        private static Font robotoMonoFont;
+#if ASSET_FACTORY
         [CreateAssetEntry]
         private static CreateAssetStrategy CreateEntry()
         {
-            return new CreateAssetStrategy<MonoScript>("Script/Script from game object", OpenWindowFromAssetFactory) { FileExtension = ".cs" };
+            return new CreateAssetStrategy<MonoScript>("Script/Script from game object", OpenWindowFromAssetFactory) { FileExtension
+ = ".cs" };
         }
-
+#endif
 #if UNITY_2019_1_OR_NEWER
         [Shortcut("Tools/Scaffolding...", KeyCode.O, ShortcutModifiers.Action | ShortcutModifiers.Shift)]
-#else
-        [MenuItem("Assets/Create/Scaffolding...", false, -20)]
 #endif
+        [MenuItem("Assets/Create/Scaffolding...", false, -20)]
         private static void OpenWindow_Shortcut() => OpenWindow();
 
         private static ScaffoldEditorWindow OpenWindow()
         {
-            var wnd = GetWindow<ScaffoldEditorWindow>(typeof(AssetFactoryWindow));
+            var wnd = GetWindow<ScaffoldEditorWindow>(
+#if ASSET_FACTORY
+                typeof(AssetFactoryWindow)
+#endif
+            );
             wnd.titleContent = CreateWindowTitle();
             return wnd;
         }
@@ -54,6 +58,7 @@ namespace QuickEye.Scaffolding
         }
 
         #region SerializedData
+
         [SerializeField]
         private FieldsFromGameObjectListState _fieldListState = new FieldsFromGameObjectListState();
 
@@ -65,11 +70,13 @@ namespace QuickEye.Scaffolding
 
         [SerializeField]
         private Vector2 _scrollPositionResult;
+
         #endregion
 
         private ScaffoldingSettings _settings;
 
         #region ViewElements
+
         [Q("content-page")]
         private VisualElement _contentPage;
 
@@ -90,6 +97,7 @@ namespace QuickEye.Scaffolding
 
         [Q("methods-content")]
         private VisualElement _methodsList;
+
         #endregion
 
         private void OnEnable()
@@ -100,7 +108,7 @@ namespace QuickEye.Scaffolding
         private void SetupView()
         {
             _settings = ScaffoldingSettings.GetOrCreateSettings();
-            _consolaFont = EditorGUIUtility.LoadRequired(EditorResources.fontsPath + "Consola.ttf") as Font;
+            robotoMonoFont = Resources.Load<Font>("QuickEye/Scaffolding/RobotoMono-Regular");
 
             var tree = Resources.Load<VisualTreeAsset>("QuickEye/Scaffolding/ScriptScaffolding");
             tree.CloneTree(rootVisualElement);
@@ -139,8 +147,9 @@ namespace QuickEye.Scaffolding
             var template = _settings.ScriptTemplate.text;
             var path = Path.ChangeExtension(_fileLocationPanel.FullPath, ".cs");
             ScaffoldingUtility.CreateScript(scriptData, path, template);
-
+#if ASSET_FACTORY
             GetWindow<AssetFactoryWindow>().Close();
+#endif
             Close();
         }
 
@@ -180,7 +189,7 @@ namespace QuickEye.Scaffolding
                 (item as Label).text = category.name;
             };
 
-            _categoryListView.onSelectionChange += OnSelectionChange;
+            _categoryListView.onSelectionChanged += OnSelectionChange;
 
             void OnSelectionChange(IEnumerable<object> selectedItems)
             {
@@ -196,13 +205,15 @@ namespace QuickEye.Scaffolding
         {
             return new (string name, Action action)[]
             {
-                ("Fields", ()=> ToggleContent(_fieldsList)),
-                ("Methods", ()=> ToggleContent(_methodsList))
+                ("Fields", () => ToggleContent(_fieldsList)),
+                ("Methods", () => ToggleContent(_methodsList))
             };
         }
 
         private void ToggleContent(VisualElement element)
         {
+            if (element == null)
+                return;
             element.ToggleDisplayStyle(true);
             foreach (var child in _contentPage.Children())
             {
@@ -219,7 +230,9 @@ namespace QuickEye.Scaffolding
 
         private string GetScaffoldingText(bool richText) =>
             string.Join("\n\n", _fieldsList.Fields.Where(f => f.enabled)
-                                   .Select(f => ScaffoldingUtility.GetFieldDeclarationLine(AccessModifier.Private, f.reference.GetType().Name, f.name, richText)));
+                .Select(f =>
+                    ScaffoldingUtility.GetFieldDeclarationLine(AccessModifier.Private, f.reference.GetType().Name,
+                        f.name, richText)));
 
         private void ResultSection()
         {
@@ -227,6 +240,7 @@ namespace QuickEye.Scaffolding
             {
                 GUI.backgroundColor = _settings.BackgroundColor;
                 var richText = $"<color=white>{GetScaffoldingText(false)}</color>";
+                Debug.Log($"MES: {_TextFieldConsolaStyle.font}");
                 GUILayout.TextArea(richText, _TextFieldConsolaStyle);
                 GUI.backgroundColor = Color.white;
                 _scrollPositionResult = s.scrollPosition;
@@ -235,7 +249,7 @@ namespace QuickEye.Scaffolding
 
         private GUIStyle _TextFieldConsolaStyle => new GUIStyle("textfield")
         {
-            font = _consolaFont,
+            font = robotoMonoFont,
             fontSize = 14,
             alignment = TextAnchor.MiddleLeft,
             richText = true

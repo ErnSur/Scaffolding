@@ -12,7 +12,7 @@
 }
 
 #name-field > #unity-text-input {
-    -unity-font: resource('Fonts/Consola.ttf');
+    -unity-font: resource('QuickEye/Scaffolding/RobotoMono-Regular');
 }
 
 Toggle {
